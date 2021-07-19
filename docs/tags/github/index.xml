@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>github on james的个人主页</title>
+    <link>/tags/github/</link>
+    <description>Recent content in github on james的个人主页</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>Copyright © 2016-{year} Razon Yang. All Rights Reserved.</copyright>
+    <lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>代理</title>
+      <link>/posts/tool/proxy/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tool/proxy/</guid>
+      <description>1. Github访问慢处理办法 1.1 方法1：GitHub520(推荐) 下载SwitchHosts 按照下图配置SwitchHosts url为：htt</description>
+    </item>
+    
+  </channel>
+</rss>
