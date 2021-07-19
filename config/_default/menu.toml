@@ -1,10 +1,46 @@
 [[main]]
-  name = "下拉菜单"
-  identifier = "dropdown"
+  name = "在线工具"
+  identifier = "website"
   pre = '<i class="fas fa-fw fa-chevron-circle-down"></i>'
 [[main]]
-  id = "github"
-  parent = "dropdown"
-  name = "Github"
-  url = "https://github.com/razonyang/hugo-theme-bootstrap"
+  id = "cron"
+  parent = "website"
+  name = "cron表达式"
+  url = "https://cron.qqe2.com/"
+  pre = '<i class="fab fa-fw fa-github"></i>'
+
+[[main]]
+  id = "dns"
+  parent = "website"
+  name = "dns查询"
+  url = "http://tool.chinaz.com/dns"
+  pre = '<i class="fab fa-fw fa-github"></i>'
+  
+[[main]]
+  id = "code"
+  parent = "website"
+  name = "编码解码"
+  url = "http://tool.chinaz.com/tools/native_ascii.aspx"
+  pre = '<i class="fab fa-fw fa-github"></i>'
+
+[[main]]
+  id = "code"
+  parent = "website"
+  name = "md表格生成"
+  url = "https://tableconvert.com/"
+  pre = '<i class="fab fa-fw fa-github"></i>'
+
+[[main]]
+  id = "code"
+  parent = "website"
+  name = "yaml<-->Properties "
+  url = "https://www.toyaml.com/index.html"
+  pre = '<i class="fab fa-fw fa-github"></i>'
+
+
+[[main]]
+  id = "code"
+  parent = "website"
+  name = "json编辑器 "
+  url = "https://www.bejson.com/jsoneditoronline/"
   pre = '<i class="fab fa-fw fa-github"></i>'
