@@ -8,5 +8,14 @@
     <language>zh-cn</language>
     <copyright>Copyright © 2016-{year} Razon Yang. All Rights Reserved.</copyright>
     <lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker</title>
+      <link>/posts/docker/env/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/docker/env/</guid>
+      <description>1. 基础环境搭建 1.1 mysql mkdir -p /data/docker/mysql/data docker run --name mysql -v /data/docker/mysql/data:/var/lib/mysql -p 3 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7.35</description>
+    </item>
+    
   </channel>
 </rss>

@@ -14,7 +14,7 @@
       <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>/posts/linux/shell/</guid>
-      <description>shell 基础</description>
+      <description>1.shell常用快捷键 1.1 光标移动 * ctrl + &amp;lt; 移动到前一个单词开头 * ctrl + &amp;gt; 移动到后一个单词结尾 * ctrl + A 移动到开头 * ctrl + E 移动到结尾 * alt + B 向左移</description>
     </item>
     
   </channel>

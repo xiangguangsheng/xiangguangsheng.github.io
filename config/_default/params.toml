@@ -1,5 +1,5 @@
 # content 目录下，那些文件夹被加载
-mainSections = ["tool", "posts", "linux"] # Default to ["posts"].
+mainSections = ["tool", "posts", "linux", "docker"] # Default to ["posts"].
 
 # titleSeparator = "|" # Title separator. Default to "-".
 

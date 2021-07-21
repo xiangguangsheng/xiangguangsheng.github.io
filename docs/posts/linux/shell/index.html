@@ -12,7 +12,7 @@
 <meta name="description" content="shell编程" /><meta itemprop="name" content="shell">
 <meta itemprop="description" content="shell编程"><meta itemprop="datePublished" content="2021-07-19T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-07-19T00:00:00+00:00" />
-<meta itemprop="wordCount" content="3">
+<meta itemprop="wordCount" content="1447">
 <meta itemprop="keywords" content="linux,shell," /><meta property="og:title" content="shell" />
 <meta property="og:description" content="shell编程" />
 <meta property="og:type" content="article" />
@@ -186,10 +186,210 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>3 分钟阅读
   </span>
 <a href="/categories/linux/" class="post-taxonomy">#linux</a><a href="/series/linux/" class="post-taxonomy">#linux</a><a href="/tags/linux/" class="post-taxonomy">#linux</a><a href="/tags/shell/" class="post-taxonomy">#shell</a></div>
-<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><div class="post-content mb-3"><h1 id="shell-基础">shell 基础</h1>
+<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-光标移动">1.1 光标移动</a></li>
+    <li><a href="#12-删除">1.2 删除</a></li>
+    <li><a href="#13-撤销">1.3 撤销</a></li>
+    <li><a href="#14-替换">1.4 替换</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#16-控制命令">1.6 控制命令</a></li>
+    <li><a href="#17-命令">1.7 !命令</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-变量">2.1 变量</a>
+      <ul>
+        <li><a href="#211-自定义变量">2.1.1 自定义变量</a></li>
+        <li><a href="#212-系统变量">2.1.2 系统变量</a></li>
+        <li><a href="#213-位置参数变量">2.1.3 位置参数变量</a></li>
+        <li><a href="#213-预先定义变量">2.1.3 预先定义变量</a></li>
+      </ul>
+    </li>
+    <li><a href="#22-引号的区别">2.2 引号的区别</a></li>
+    <li><a href="#23-数字运算">2.3 数字运算</a></li>
+    <li><a href="#24-">2.4 $</a></li>
+    <li><a href="#25-命令执行">2.5 命令执行</a></li>
+    <li><a href="#26-条件测试">2.6 条件测试</a></li>
+    <li><a href="#27-文件测试">2.7 文件测试</a></li>
+    <li><a href="#28-数值比较">2.8 数值比较</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h1 id="1shell常用快捷键">1.shell常用快捷键</h1>
+<h2 id="11-光标移动">1.1 光标移动</h2>
+<pre><code>* ctrl + &lt;      移动到前一个单词开头
+* ctrl + &gt;      移动到后一个单词结尾
+* ctrl + A      移动到开头
+* ctrl + E      移动到结尾
+* alt  + B      向左移动一个单词
+* alt  + F      向右移动一个单词
+  ctrl + B      向左移动一个字符
+  ctrl + F      向右移动一个字符
+  esc  + B      向左移动一个单词
+  esc  + F      向右移动一个单词
+  ctrl + XX     在上次光和当前光标所在字符间跳转
+  esc  + T      交换光标位置前的两个单词
+</code></pre><h2 id="12-删除">1.2 删除</h2>
+<pre><code>* ctrl + K      删除光标后所有字符(剪切)
+* ctrl + U      删除光标前所有字符(剪切)
+* ctrl + W      删除光标前一个单词
+  ctrl + D      删除光标所在字符(光标右侧)
+  ctrl + H      删除光标前字符(光标左侧)
+</code></pre><h2 id="13-撤销">1.3 撤销</h2>
+<pre><code>* ctrl + _      撤销操作
+* ctrl + Y      粘贴ctrl+U/K剪切的内容
+  ctrl + ?      撤消前一次输入
+  alt  + R      撤消前一次动作
+</code></pre><h2 id="14-替换">1.4 替换</h2>
+<pre><code>* ctrl + T      将光标当前字符与前面一个字符替换
+</code></pre><h1 id="15-历史命令编辑">1.5 历史命令编辑</h1>
+<pre><code>* ctrl + P      上条输入的命令(相当于上键)
+* ctrl + N      上条历史命(相当于下键)
+* alt  + &gt;      上一次执行命令
+* ctrl + R      输入单词搜索历史命令
+</code></pre><h2 id="16-控制命令">1.6 控制命令</h2>
+<pre><code>* ctrl + L      清除屏幕
+  ctrl + S      锁住终端，阻止屏幕输出
+  ctrl + Q      解锁终端，允许屏幕输出
+  ctrl + C      终止命令&amp;另起一行
+  ctrl + I      补全功能(类似TAB)
+  ctrl + O      重复执行命令
+  alt  + &lt;数字&gt;  操作的次数
+  ctrl + Z      挂起
+</code></pre><h2 id="17-命令">1.7 !命令</h2>
+<pre><code>* !!            执行上条命令
+* !-n           执行前n条命令
+</code></pre><h1 id="2shell-基础">2.shell 基础</h1>
+<h2 id="21-变量">2.1 变量</h2>
+<h3 id="211-自定义变量">2.1.1 自定义变量</h3>
+<ol>
+<li>定义变量：<code>变量名=变量值 （等号前后不能有空格）</code></li>
+<li>引用变量：<code>\$变量名和\${变量名},区别：基本相同，${变量名}可以用在字符串模板中</code></li>
+<li>查看变量：<code>echo $变量名，set 显示所有的变量，包括自定义变量和系统变量</code></li>
+<li>取消变量：<code>unset 变量名，作用范围，当前shell中有效</code></li>
+</ol>
+<h3 id="212-系统变量">2.1.2 系统变量</h3>
+<ol>
+<li>定义系统变量：<code>export 变量名=变量值,将自定义变量转为环境变量</code></li>
+<li>引用系统变量：<code>\$变量名和\${变量名},区别：基本相同，${变量名}可以用在字符串模板中</code></li>
+<li>查看系统变量：<code>echo $变量名，env显示所有系统变量</code></li>
+<li>取消系统变量：<code>unset 变量名，作用范围，当前shell和子shell中有效</code></li>
+</ol>
+<h3 id="213-位置参数变量">2.1.3 位置参数变量</h3>
+<p>脚本参数传参<code>$1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} </code></p>
+<h3 id="213-预先定义变量">2.1.3 预先定义变量</h3>
+<blockquote>
+<p><code>$0</code>脚本名称</p>
+<p><code>$*</code>所有参数</p>
+<p><code>$@</code>所有参数</p>
+<p><code>$#</code>参数个数</p>
+<p><code>$$</code>当前进程pid</p>
+<p><code>$!</code>上个后台经常pid</p>
+<p><code>$?</code>上个命令返回值，0表示成功</p>
+</blockquote>
+<p>脚本参数传参<code>$1 $2 $3 $4 $5 $6 $7 $8 $9 ${10} </code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#变量赋值，=号前后不能有空格</span>
+<span style="color:#75715e"># 变量的解析，建议用$(),不建议使用`</span>
+v1<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date +%F<span style="color:#e6db74">`</span>
+v2<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date +%F<span style="color:#66d9ef">)</span>
+</code></pre></div><h2 id="22-引号的区别">2.2 引号的区别</h2>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单引号<code>'</code></td>
+<td>所见即所得</td>
+<td></td>
+</tr>
+<tr>
+<td>双引号<code>&quot;</code></td>
+<td>会解析变量</td>
+<td></td>
+</tr>
+<tr>
+<td>反引号`</td>
+<td>会执行命令同<code>$()</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="23-数字运算">2.3 数字运算</h2>
+<ol>
+<li>
+<p>使用$(()),例如$((1+2))</p>
+</li>
+<li>
+<p>使用$[],例如：$[1+2]</p>
+</li>
+<li>
+<p>expr, 例如：expr 1+2</p>
+</li>
+<li>
+<p>let，例如：let num=1+2</p>
+</li>
+</ol>
+<h2 id="24-">2.4 $</h2>
+<ol>
+<li>${变量名-默认变量值}，当变量没有设置值时（或者使用了<code>unset 变量名</code> ）,会显示默认变量值；当有变量值（包括空值），不会显示默认值</li>
+<li>${变量名:-默认变量值}，当变量没有设置值时（包括空值 ）,会显示默认变量值；当有变量值（不包括空值），不会显示默认值</li>
+</ol>
+<h2 id="25-命令执行">2.5 命令执行</h2>
+<ol>
+<li><code>命令1 ；命令2</code> :命令1和命令2都会执行</li>
+<li><code>命令1 &amp;&amp; 命令2</code> :命令1执行成功才会执行命令2</li>
+<li><code>命令1 || 命令2</code> :命令1执行失败才会执行命令2</li>
+</ol>
+<h2 id="26-条件测试">2.6 条件测试</h2>
+<ol>
+<li><code>test 条件表达式</code></li>
+<li><code>[ 条件表达式 ]</code></li>
+<li><code>[[ 条件表达式 ]]</code></li>
+</ol>
+<blockquote>
+<p><code>[</code>是个命令，所以，<code>[ 条件表达式 ]</code> 表达式前后都要有空格</p>
+</blockquote>
+<h2 id="27-文件测试">2.7 文件测试</h2>
+<ol>
+<li><code>[ -e dir|file ]</code>: 是否存在dir目录 或者file文件</li>
+<li><code>[ -d dir ]</code>: 是否存在dir目录</li>
+<li><code>[ -f file ]</code>: 是否存在file文件</li>
+<li><code>[ -r file ]</code>: 是否有读权限</li>
+<li><code>[ -w file ]</code>: 是否有写权限</li>
+<li><code>[ -x file ]</code>: 是否有执行权限</li>
+<li><code>[ -L file ]</code>: 是否为链接文件</li>
+</ol>
+<h2 id="28-数值比较">2.8 数值比较</h2>
+<ol>
+<li><code>[ 1 -gt 10 ]</code>: 大于</li>
+<li><code>[ 1 -lt 10 ]</code>: 小于</li>
+<li><code>[ 1 -eq 10 ]</code>: 等于</li>
+<li><code>[ 1 -ne 10 ]</code>: 不等于</li>
+<li><code>[ 1 -ge 10 ]</code>: 大于等于</li>
+<li><code>[ 1 -le 10 ]</code>: 大于等于</li>
+</ol>
 </div><div class="post-copyright mb-4">
   <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
 </div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
@@ -201,7 +401,7 @@
     </div></div>
 </div><section class="related-posts">
     <h3>相关文章</h3>
-    <ul class="related-posts"><li><a href="/posts/tool/hugo/">hugo</a></li><li><a href="/posts/tool/proxy/">代理</a></li><li><a href="/posts/shortcodes/alert/">Alert Shortcode</a></li><li><a href="/posts/shortcodes/bilibili/">Bilibili Shortcode</a></li><li><a href="/posts/shortcodes/codepen/">CodePen Shortcode</a></li></ul>
+    <ul class="related-posts"><li><a href="/posts/docker/env/">docker</a></li><li><a href="/posts/tool/hugo/">hugo</a></li><li><a href="/posts/tool/proxy/">代理</a></li><li><a href="/posts/shortcodes/alert/">Alert Shortcode</a></li><li><a href="/posts/shortcodes/bilibili/">Bilibili Shortcode</a></li></ul>
   </section></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
   repo="razonyang/hugo-theme-bootstrap"
   issue-term="pathname"
@@ -219,17 +419,17 @@
     <h5 class="profile-name my-2">Razon Yang</h5><div class="profile-bio mb-2">Gopher, PHPer, Full Stack Engineer.</div><div class="profile-company mb-2"><i class="fas fa-fw fa-building"></i>Null</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/tool/hugo/">hugo</a></li><li><a href="/posts/linux/shell/">shell</a></li><li><a href="/posts/tool/proxy/">代理</a></li><li><a href="/posts/shortcodes/alert/">Alert Shortcode</a></li><li><a href="/posts/shortcodes/bilibili/">Bilibili Shortcode</a></li></ul>
+  <ul><li><a href="/posts/docker/env/">docker</a></li><li><a href="/posts/tool/hugo/">hugo</a></li><li><a href="/posts/linux/shell/">shell</a></li><li><a href="/posts/tool/proxy/">代理</a></li><li><a href="/posts/shortcodes/alert/">Alert Shortcode</a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
         <a href="/categories">分类</a>
       </h4>
       <div><a href="/categories/shortcode/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Shortcode">
           Shortcode <span class="badge rounded-pill">9</span>
+        </a><a href="/categories/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
+          linux <span class="badge rounded-pill">2</span>
         </a><a href="/categories/tool/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="tool">
           tool <span class="badge rounded-pill">2</span>
-        </a><a href="/categories/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
-          linux <span class="badge rounded-pill">1</span>
         </a></div>
     </section><section class="taxonomy-series row surface">
       <h4>
@@ -237,6 +437,8 @@
       </h4>
       <div><a href="/series/tool/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="tool">
           tool <span class="badge rounded-pill">2</span>
+        </a><a href="/series/docker/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="docker">
+          docker <span class="badge rounded-pill">1</span>
         </a><a href="/series/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
           linux <span class="badge rounded-pill">1</span>
         </a><a href="/series/%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="用户手册">
@@ -246,10 +448,14 @@
       <h4>
         <a href="/tags">标签</a>
       </h4>
-      <div><a href="/tags/alert/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Alert">
+      <div><a href="/tags/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
+          linux <span class="badge rounded-pill">2</span>
+        </a><a href="/tags/alert/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Alert">
           Alert <span class="badge rounded-pill">1</span>
         </a><a href="/tags/codepen/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="CodePen">
           CodePen <span class="badge rounded-pill">1</span>
+        </a><a href="/tags/docker/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="docker">
+          docker <span class="badge rounded-pill">1</span>
         </a><a href="/tags/github/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="github">
           github <span class="badge rounded-pill">1</span>
         </a><a href="/tags/github-pages/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="github pages">
@@ -260,12 +466,8 @@
           JSFiddle <span class="badge rounded-pill">1</span>
         </a><a href="/tags/jsrun/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JSRun">
           JSRun <span class="badge rounded-pill">1</span>
-        </a><a href="/tags/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
-          linux <span class="badge rounded-pill">1</span>
         </a><a href="/tags/proxy/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="proxy">
           proxy <span class="badge rounded-pill">1</span>
-        </a><a href="/tags/shadowsocks/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Shadowsocks">
-          Shadowsocks <span class="badge rounded-pill">1</span>
         </a></div>
     </section></div>
 </aside>
