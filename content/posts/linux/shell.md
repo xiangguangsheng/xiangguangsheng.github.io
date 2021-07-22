@@ -191,3 +191,61 @@ v2=$(date +%F)
 4. `[ 1 -ne 10 ]`: 不等于
 5. `[ 1 -ge 10 ]`: 大于等于
 6. `[ 1 -le 10 ]`: 大于等于
+
+## 2.9 if语句
+
+```shell
+if [ 条件语句 ];then
+	echo "条件1"
+elif [ 条件语句 ];then
+	echo "条件1"
+elif [ 条件语句 ];then
+	echo "条件1"
+else
+	echo "条件1"
+fi
+```
+
+## 2.10 case语句
+
+```shell
+case 变量 in
+	值1)
+	echo "1" ;;
+	值2)
+	echo "2" ;;
+	*)
+	echo "*" 
+esac
+```
+
+## 2.11 for循环
+
+```shell
+for 变量 in [ 取值列表 ]
+do
+	echo "1" 
+done
+```
+
+## 2.12  while循环
+
+```shell
+while 条件测试
+do
+	echo "1" 
+done
+```
+
+## 2.13  shell内置命令
+
+1. `break` 跳出当前循环
+2. `continue` 执行下次循环
+3. `exit` 退出整个程序
+
+## 3.1 子shell
+
+```shell
+{ 命令 }&   #命令会在子shell中执行，可以使用wait 还等待执行完成
+```
+

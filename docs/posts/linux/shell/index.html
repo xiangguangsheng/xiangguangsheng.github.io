@@ -12,7 +12,7 @@
 <meta name="description" content="shell编程" /><meta itemprop="name" content="shell">
 <meta itemprop="description" content="shell编程"><meta itemprop="datePublished" content="2021-07-19T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-07-19T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1447">
+<meta itemprop="wordCount" content="1667">
 <meta itemprop="keywords" content="linux,shell," /><meta property="og:title" content="shell" />
 <meta property="og:description" content="shell编程" />
 <meta property="og:type" content="article" />
@@ -186,7 +186,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>3 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>4 分钟阅读
   </span>
 <a href="/categories/linux/" class="post-taxonomy">#linux</a><a href="/series/linux/" class="post-taxonomy">#linux</a><a href="/tags/linux/" class="post-taxonomy">#linux</a><a href="/tags/shell/" class="post-taxonomy">#shell</a></div>
 <div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
@@ -229,6 +229,12 @@
     <li><a href="#26-条件测试">2.6 条件测试</a></li>
     <li><a href="#27-文件测试">2.7 文件测试</a></li>
     <li><a href="#28-数值比较">2.8 数值比较</a></li>
+    <li><a href="#29-if语句">2.9 if语句</a></li>
+    <li><a href="#210-case语句">2.10 case语句</a></li>
+    <li><a href="#211-for循环">2.11 for循环</a></li>
+    <li><a href="#212--while循环">2.12  while循环</a></li>
+    <li><a href="#213--shell内置命令">2.13  shell内置命令</a></li>
+    <li><a href="#31-子shell">3.1 子shell</a></li>
   </ul>
 </nav>
   </div>
@@ -390,7 +396,44 @@ v2<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date 
 <li><code>[ 1 -ge 10 ]</code>: 大于等于</li>
 <li><code>[ 1 -le 10 ]</code>: 大于等于</li>
 </ol>
-</div><div class="post-copyright mb-4">
+<h2 id="29-if语句">2.9 if语句</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> 条件语句 <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+	echo <span style="color:#e6db74">&#34;条件1&#34;</span>
+<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> 条件语句 <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+	echo <span style="color:#e6db74">&#34;条件1&#34;</span>
+<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> 条件语句 <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+	echo <span style="color:#e6db74">&#34;条件1&#34;</span>
+<span style="color:#66d9ef">else</span>
+	echo <span style="color:#e6db74">&#34;条件1&#34;</span>
+<span style="color:#66d9ef">fi</span>
+</code></pre></div><h2 id="210-case语句">2.10 case语句</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#66d9ef">case</span> 变量 in
+	值1<span style="color:#f92672">)</span>
+	echo <span style="color:#e6db74">&#34;1&#34;</span> ;;
+	值2<span style="color:#f92672">)</span>
+	echo <span style="color:#e6db74">&#34;2&#34;</span> ;;
+	*<span style="color:#f92672">)</span>
+	echo <span style="color:#e6db74">&#34;*&#34;</span> 
+<span style="color:#66d9ef">esac</span>
+</code></pre></div><h2 id="211-for循环">2.11 for循环</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#66d9ef">for</span> 变量 in <span style="color:#f92672">[</span> 取值列表 <span style="color:#f92672">]</span>
+<span style="color:#66d9ef">do</span>
+	echo <span style="color:#e6db74">&#34;1&#34;</span> 
+<span style="color:#66d9ef">done</span>
+</code></pre></div><h2 id="212--while循环">2.12  while循环</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#66d9ef">while</span> 条件测试
+<span style="color:#66d9ef">do</span>
+	echo <span style="color:#e6db74">&#34;1&#34;</span> 
+<span style="color:#66d9ef">done</span>
+</code></pre></div><h2 id="213--shell内置命令">2.13  shell内置命令</h2>
+<ol>
+<li><code>break</code> 跳出当前循环</li>
+<li><code>continue</code> 执行下次循环</li>
+<li><code>exit</code> 退出整个程序</li>
+</ol>
+<h2 id="31-子shell">3.1 子shell</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#f92672">{</span> 命令 <span style="color:#f92672">}</span>&amp;   <span style="color:#75715e">#命令会在子shell中执行，可以使用wait 还等待执行完成</span>
+</code></pre></div></div><div class="post-copyright mb-4">
   <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
 </div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
