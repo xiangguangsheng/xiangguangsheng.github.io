@@ -10,11 +10,38 @@
     <lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>docker</title>
+      <link>/posts/docker/base/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/docker/base/</guid>
+      <description>CMD和ENTRYPOINT cmd ,在运行时可以被覆盖 两个同时存在时，cmd中的内容会被当做参数传递到entrypoint中</description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>/posts/docker/dockerfile/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/docker/dockerfile/</guid>
+      <description>1.制作小镜像 1.1基础镜像的选择 alpine busybox scratch：空的镜像，什么都没有 debian 如果用到glibc，可以使用各种slim镜像版本：例如node:</description>
+    </item>
+    
+    <item>
+      <title>docker</title>
       <link>/posts/docker/env/</link>
       <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>/posts/docker/env/</guid>
       <description>1. 基础环境搭建 1.1 mysql mkdir -p /data/docker/mysql/data docker run --name mysql -v /data/docker/mysql/data:/var/lib/mysql -p 3 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7.35</description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>/posts/k8s/base/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/k8s/base/</guid>
+      <description>1. 组件 1.1 master节点 kube-APIServer:集群的控制中枢，各个模块之间信息交互都需要经过Kube-APIServer，同时它也是</description>
     </item>
     
   </channel>

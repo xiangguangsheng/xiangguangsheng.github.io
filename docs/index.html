@@ -170,6 +170,28 @@
       <div class="row content">
 <div class="col-lg-8">
   <div class="container"><div class="posts mb-4"><article class="post row surface"><div class="post-body">
+        <h2 class="post-title mb-4"><a href="/posts/docker/base/">docker</a></h2><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+  </span>
+<a href="/categories/linux/" class="post-taxonomy">#linux</a><a href="/series/docker/" class="post-taxonomy">#docker</a><a href="/tags/linux/" class="post-taxonomy">#linux</a><a href="/tags/docker/" class="post-taxonomy">#docker</a></div>
+<div class="post-summary mb-3">CMD和ENTRYPOINT cmd ,在运行时可以被覆盖 两个同时存在时，cmd中的内容会被当做参数传递到entrypoint中</div>
+      </div>
+    </article><article class="post row surface"><div class="post-body">
+        <h2 class="post-title mb-4"><a href="/posts/docker/dockerfile/">docker</a></h2><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+  </span>
+<a href="/categories/linux/" class="post-taxonomy">#linux</a><a href="/series/docker/" class="post-taxonomy">#docker</a><a href="/tags/dockerfile/" class="post-taxonomy">#dockerfile</a><a href="/tags/docker/" class="post-taxonomy">#docker</a></div>
+<div class="post-summary mb-3">1.制作小镜像 1.1基础镜像的选择 alpine busybox scratch：空的镜像，什么都没有 debian 如果用到glibc，可以使用各种slim镜像版本：例如node:</div>
+      </div>
+    </article><article class="post row surface"><div class="post-body">
         <h2 class="post-title mb-4"><a href="/posts/docker/env/">docker</a></h2><div class="post-meta mb-3">
   <span class="post-date me-2">
     <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
@@ -181,6 +203,17 @@
 <div class="post-summary mb-3">1. 基础环境搭建 1.1 mysql mkdir -p /data/docker/mysql/data docker run --name mysql -v /data/docker/mysql/data:/var/lib/mysql -p 3 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7.35</div>
       </div>
     </article><article class="post row surface"><div class="post-body">
+        <h2 class="post-title mb-4"><a href="/posts/k8s/base/">docker</a></h2><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
+  </span>
+<a href="/categories/k8s/" class="post-taxonomy">#k8s</a><a href="/series/k8s/" class="post-taxonomy">#k8s</a><a href="/tags/k8s/" class="post-taxonomy">#k8s</a></div>
+<div class="post-summary mb-3">1. 组件 1.1 master节点 kube-APIServer:集群的控制中枢，各个模块之间信息交互都需要经过Kube-APIServer，同时它也是</div>
+      </div>
+    </article><article class="post row surface"><div class="post-body">
         <h2 class="post-title mb-4"><a href="/posts/tool/hugo/">hugo</a></h2><div class="post-meta mb-3">
   <span class="post-date me-2">
     <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
@@ -190,39 +223,6 @@
   </span>
 <a href="/categories/tool/" class="post-taxonomy">#tool</a><a href="/series/tool/" class="post-taxonomy">#tool</a><a href="/tags/hugo/" class="post-taxonomy">#hugo</a><a href="/tags/github-pages/" class="post-taxonomy">#github pages</a></div>
 <div class="post-summary mb-3">1. hugo安装配置 1.1 下载hugo 下载 hugo ,并配置环境变量 运行demo cd e:workspace/workspace-notes/ hugo new site notes cd notes git submodule add https://github.com/razonyang/hugo-theme-bootstrap themes/hugo-theme-bootstrap mkdir config cp -a themes/hugo-theme-bootstrap/exampleSite/config/* ./config #复制exampleSite\con</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="/posts/linux/shell/">shell</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>4 分钟阅读
-  </span>
-<a href="/categories/linux/" class="post-taxonomy">#linux</a><a href="/series/linux/" class="post-taxonomy">#linux</a><a href="/tags/linux/" class="post-taxonomy">#linux</a><a href="/tags/shell/" class="post-taxonomy">#shell</a></div>
-<div class="post-summary mb-3">1.shell常用快捷键 1.1 光标移动 * ctrl + &lt; 移动到前一个单词开头 * ctrl + &gt; 移动到后一个单词结尾 * ctrl + A 移动到开头 * ctrl + E 移动到结尾 * alt + B 向左移</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="/posts/tool/proxy/">代理</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
-  </span>
-<a href="/categories/tool/" class="post-taxonomy">#tool</a><a href="/series/tool/" class="post-taxonomy">#tool</a><a href="/tags/proxy/" class="post-taxonomy">#proxy</a><a href="/tags/github/" class="post-taxonomy">#github</a><a href="/tags/switchhosts/" class="post-taxonomy">#SwitchHosts</a><a href="/tags/shadowsocks/" class="post-taxonomy">#Shadowsocks</a></div>
-<div class="post-summary mb-3">1. Github访问慢处理办法 1.1 方法1：GitHub520(推荐) 下载SwitchHosts 按照下图配置SwitchHosts url为：htt</div>
-      </div>
-    </article><article class="post row surface"><div class="post-body">
-        <h2 class="post-title mb-4"><a href="/posts/shortcodes/alert/">Alert Shortcode</a></h2><div class="post-meta mb-3">
-  <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>2020-10-22
-  </span>
-  <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
-  </span>
-<a href="/categories/shortcode/" class="post-taxonomy">#Shortcode</a><a href="/series/%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/" class="post-taxonomy">#用户手册</a><a href="/tags/alert/" class="post-taxonomy">#Alert</a></div>
-<div class="post-summary mb-3"><p>本文展示了如果使用 <code>alert</code> shortcode。</p></div>
       </div>
     </article></div><div class="row table-responsive mb-3">
     <ul class="pagination pagination-default">
@@ -242,10 +242,13 @@
         <a href="/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
       </li>
       <li class="page-item">
+        <a href="/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
         <a href="/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/page/3/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/4/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul></div>
 </div>
@@ -259,7 +262,7 @@
     <h5 class="profile-name my-2">Razon Yang</h5><div class="profile-bio mb-2">Gopher, PHPer, Full Stack Engineer.</div><div class="profile-company mb-2"><i class="fas fa-fw fa-building"></i>Null</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>Earth</div></div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/docker/env/">docker</a></li><li><a href="/posts/tool/hugo/">hugo</a></li><li><a href="/posts/linux/shell/">shell</a></li><li><a href="/posts/tool/proxy/">代理</a></li><li><a href="/posts/shortcodes/alert/">Alert Shortcode</a></li></ul>
+  <ul><li><a href="/posts/docker/base/">docker</a></li><li><a href="/posts/docker/dockerfile/">docker</a></li><li><a href="/posts/docker/env/">docker</a></li><li><a href="/posts/k8s/base/">docker</a></li><li><a href="/posts/tool/hugo/">hugo</a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
         <a href="/categories">分类</a>
@@ -267,20 +270,24 @@
       <div><a href="/categories/shortcode/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Shortcode">
           Shortcode <span class="badge rounded-pill">9</span>
         </a><a href="/categories/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
-          linux <span class="badge rounded-pill">2</span>
+          linux <span class="badge rounded-pill">5</span>
         </a><a href="/categories/tool/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="tool">
           tool <span class="badge rounded-pill">2</span>
+        </a><a href="/categories/k8s/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="k8s">
+          k8s <span class="badge rounded-pill">1</span>
         </a></div>
     </section><section class="taxonomy-series row surface">
       <h4>
         <a href="/series">专栏</a>
       </h4>
-      <div><a href="/series/tool/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="tool">
-          tool <span class="badge rounded-pill">2</span>
-        </a><a href="/series/docker/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="docker">
-          docker <span class="badge rounded-pill">1</span>
+      <div><a href="/series/docker/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="docker">
+          docker <span class="badge rounded-pill">3</span>
         </a><a href="/series/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
-          linux <span class="badge rounded-pill">1</span>
+          linux <span class="badge rounded-pill">2</span>
+        </a><a href="/series/tool/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="tool">
+          tool <span class="badge rounded-pill">2</span>
+        </a><a href="/series/k8s/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="k8s">
+          k8s <span class="badge rounded-pill">1</span>
         </a><a href="/series/%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="用户手册">
           用户手册 <span class="badge rounded-pill">1</span>
         </a></div>
@@ -289,13 +296,15 @@
         <a href="/tags">标签</a>
       </h4>
       <div><a href="/tags/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
-          linux <span class="badge rounded-pill">2</span>
+          linux <span class="badge rounded-pill">4</span>
+        </a><a href="/tags/docker/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="docker">
+          docker <span class="badge rounded-pill">3</span>
         </a><a href="/tags/alert/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Alert">
           Alert <span class="badge rounded-pill">1</span>
         </a><a href="/tags/codepen/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="CodePen">
           CodePen <span class="badge rounded-pill">1</span>
-        </a><a href="/tags/docker/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="docker">
-          docker <span class="badge rounded-pill">1</span>
+        </a><a href="/tags/dockerfile/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="dockerfile">
+          dockerfile <span class="badge rounded-pill">1</span>
         </a><a href="/tags/github/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="github">
           github <span class="badge rounded-pill">1</span>
         </a><a href="/tags/github-pages/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="github pages">
@@ -306,8 +315,6 @@
           JSFiddle <span class="badge rounded-pill">1</span>
         </a><a href="/tags/jsrun/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JSRun">
           JSRun <span class="badge rounded-pill">1</span>
-        </a><a href="/tags/proxy/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="proxy">
-          proxy <span class="badge rounded-pill">1</span>
         </a></div>
     </section></div>
 </aside>

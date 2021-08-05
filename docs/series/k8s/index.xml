@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k8s on james的个人主页</title>
+    <link>/series/k8s/</link>
+    <description>Recent content in k8s on james的个人主页</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>Copyright © 2016-{year} Razon Yang. All Rights Reserved.</copyright>
+    <lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/series/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker</title>
+      <link>/posts/k8s/base/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/k8s/base/</guid>
+      <description>1. 组件 1.1 master节点 kube-APIServer:集群的控制中枢，各个模块之间信息交互都需要经过Kube-APIServer，同时它也是</description>
+    </item>
+    
+  </channel>
+</rss>

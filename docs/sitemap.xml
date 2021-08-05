@@ -8,7 +8,19 @@
     <loc>/series/docker/</loc>
     <lastmod>2021-07-19T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/posts/docker/base/</loc>
+    <lastmod>2021-07-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/docker/dockerfile/</loc>
+    <lastmod>2021-07-19T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/posts/docker/env/</loc>
+    <lastmod>2021-07-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/k8s/base/</loc>
+    <lastmod>2021-07-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/dockerfile/</loc>
     <lastmod>2021-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/github/</loc>
@@ -24,6 +36,15 @@
     <lastmod>2021-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/</loc>
+    <lastmod>2021-07-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/k8s/</loc>
+    <lastmod>2021-07-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/series/k8s/</loc>
+    <lastmod>2021-07-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/k8s/</loc>
     <lastmod>2021-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/linux/</loc>
@@ -50,6 +71,9 @@
     <loc>/posts/linux/shell/</loc>
     <lastmod>2021-07-19T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/posts/linux/ubuntu/</loc>
+    <lastmod>2021-07-19T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/tags/switchhosts/</loc>
     <lastmod>2021-07-19T00:00:00+00:00</lastmod>
   </url><url>
@@ -57,6 +81,9 @@
     <lastmod>2021-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/tool/</loc>
+    <lastmod>2021-07-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/ubuntu/</loc>
     <lastmod>2021-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/series/</loc>

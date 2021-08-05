@@ -9,6 +9,15 @@
     <copyright>Copyright © 2016-{year} Razon Yang. All Rights Reserved.</copyright>
     <lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>k8s</title>
+      <link>/categories/k8s/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>linux</title>
       <link>/categories/linux/</link>
       <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>

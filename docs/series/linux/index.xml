@@ -17,5 +17,14 @@
       <description>1.shell常用快捷键 1.1 光标移动 * ctrl + &amp;lt; 移动到前一个单词开头 * ctrl + &amp;gt; 移动到后一个单词结尾 * ctrl + A 移动到开头 * ctrl + E 移动到结尾 * alt + B 向左移</description>
     </item>
     
+    <item>
+      <title>shell</title>
+      <link>/posts/linux/ubuntu/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/linux/ubuntu/</guid>
+      <description>1.安装后配置 1.1 更新系统 # 列出可更新软件列表 sudo apt update # 更新软件 sudo apt upgrade # 清除旧的组件 sudo apt autoremove #更新系统版本 sudo apt-get dist-upgrade 1.2 安装docker ##文档路径 https://docs.docker.com/engine/install/ubuntu/ #</description>
+    </item>
+    
   </channel>
 </rss>
