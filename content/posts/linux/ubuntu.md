@@ -432,3 +432,38 @@ docker tag  registry.aliyuncs.com/google_containers/coredns:1.8.0  registry.aliy
 kubectl delete pod coredns-59d64cd4d4-n46p6  -n kube-system
 ```
 
+### 1.6.5 k8s命令自动补全
+
+```shell
+echo "source <(kubectl completion bash)" >> ~/.bashrc # 在您的 bash shell 中永久的添加自动补全
+```
+
+## 1.7 mertics-server
+
+```shell
+wget   https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml 
+
+```
+
+```yaml
+  template:
+    metadata:
+      labels:
+        k8s-app: metrics-server
+    spec:
+      containers:
+      - args:
+        - --cert-dir=/tmp
+        - --secure-port=443
+        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+        - --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt # 添加证书，可能会导致获取不到度量指标
+        - --kubelet-use-node-status-port
+        - --metric-resolution=15s
+        image: k8s.gcr.io/metrics-server/metrics-server:v0.5.0
+
+```
+
+
+
+## 1.8 dashboard
+

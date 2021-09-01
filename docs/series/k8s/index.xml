@@ -17,5 +17,14 @@
       <description>1. 组件 1.1 master节点 kube-APIServer:集群的控制中枢，各个模块之间信息交互都需要经过Kube-APIServer，同时它也是</description>
     </item>
     
+    <item>
+      <title>k8s kind</title>
+      <link>/posts/k8s/kind/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/k8s/kind/</guid>
+      <description>1. node 1.1 master节点 kube-APIServer:集群的控制中枢，各个模块之间信息交互都需要经过Kube-APIServer，同时它也是集</description>
+    </item>
+    
   </channel>
 </rss>

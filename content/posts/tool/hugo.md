@@ -67,3 +67,14 @@ images = [
 1. 提交代码到GitHub
 
 2. 直接访问 [https://xiangguangsheng.github.io/](https://xiangguangsheng.github.io/)
+
+## 1.5 页面更新
+
+```shell
+# 1.执行hugo命令，自动编译页面，然后提交到github
+hugo
+# 2. 本地查看页面
+hugo server
+
+```
+

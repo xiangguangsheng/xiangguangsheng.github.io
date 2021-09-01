@@ -23,7 +23,7 @@
       <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>/posts/linux/ubuntu/</guid>
-      <description>1.安装后配置 1.1 更新系统 # 列出可更新软件列表 sudo apt update # 更新软件 sudo apt upgrade # 清除旧的组件 sudo apt autoremove #更新系统版本 sudo apt-get dist-upgrade 1.2 安装docker ##文档路径 https://docs.docker.com/engine/install/ubuntu/ #</description>
+      <description>1.安装后配置 1.1 更新系统 # 列出可更新软件列表 sudo apt update # 更新软件 sudo apt upgrade # 清除旧的组件 sudo apt autoremove #更新系统版本 sudo apt-get dist-upgrade 1.2 修改ip sudo vi /etc/netplan/00-installer-config.yaml network: ethernets: enp0s3: dhcp4: no addresses: [192.168.124.200/24] optional: true</description>
     </item>
     
   </channel>

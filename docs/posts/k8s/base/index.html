@@ -12,14 +12,14 @@
 <meta name="description" content="docker" /><meta itemprop="name" content="docker">
 <meta itemprop="description" content="docker"><meta itemprop="datePublished" content="2021-07-19T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-07-19T00:00:00+00:00" />
-<meta itemprop="wordCount" content="979">
+<meta itemprop="wordCount" content="3683">
 <meta itemprop="keywords" content="k8s," /><meta property="og:title" content="docker" />
 <meta property="og:description" content="docker" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/k8s/base/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-07-19T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-07-19T00:00:00+00:00" />
-
+<meta property="og:see_also" content="/posts/k8s/kind/" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="docker"/>
@@ -186,7 +186,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2021-07-19
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>8 分钟阅读
   </span>
 <a href="/categories/k8s/" class="post-taxonomy">#k8s</a><a href="/series/k8s/" class="post-taxonomy">#k8s</a><a href="/tags/k8s/" class="post-taxonomy">#k8s</a></div>
 <div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
@@ -209,6 +209,57 @@
       </ul>
     </li>
     <li><a href="#13-其他组件">1.3 其他组件</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-资源分配调度">4.1 资源分配调度</a>
+      <ul>
+        <li><a href="#412-基于资源申明的调度而非实际占用">4.1.2 基于资源申明的调度，而非实际占用</a></li>
+        <li><a href="#413-资源分配的盒子模型">4.1.3 资源分配的盒子模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#42-高级调度">4.2 高级调度</a>
+      <ul>
+        <li><a href="#421-nodeselector将pod调度到指定的node上">4.2.1 nodeSelector:将pod调度到指定的node上</a></li>
+        <li><a href="#422-nodeaffinitynodeselector升级版">4.2.2 nodeAffinity：nodeselector升级版</a></li>
+        <li><a href="#423-podaffinity让某些pod分布在同一组上node上">4.2.3 podAffinity:让某些pod分布在同一组上Node上</a></li>
+        <li><a href="#424podantiaffinity避免某些pod分布在同一组node上">4.2.4podAntiAffinity：避免某些pod分布在同一组Node上</a></li>
+        <li><a href="#425-手动调度pod">4.2.5 手动调度pod</a></li>
+        <li><a href="#426-taints避免pod调度到特定node上">4.2.6 Taints：避免Pod调度到特定Node上</a></li>
+        <li><a href="#427-tolerations允许pod调度到有特定taints的node上">4.2.7 Tolerations：允许Pod调度到有特定taints的Node上</a></li>
+      </ul>
+    </li>
+    <li><a href="#43-调度失败的原因分析">4.3 调度失败的原因分析</a></li>
+    <li><a href="#44-多调度器">4.4 多调度器</a></li>
+    <li><a href="#45-自定义调度器配置">4.5 自定义调度器配置</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#71-pod网络">7.1 pod网络</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#ingress">ingress</a></li>
+        <li><a href="#k8s-dns">k8s dns</a></li>
+        <li><a href="#查看dns">查看dns</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#81-普通存储卷volume">8.1 普通存储卷volume</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#91-安全全景图">9.1 安全全景图</a></li>
+    <li><a href="#92-认证">9.2 认证</a></li>
+    <li><a href="#93-鉴权">9.3 鉴权</a></li>
+    <li><a href="#94-admission">9.4 admission</a></li>
+    <li><a href="#95-安全的持久化保存键值etcd">9.5 安全的持久化保存键值etcd</a></li>
+    <li><a href="#96-安全上下文pod-securitycontext">9.6 安全上下文（pod securityContext）</a></li>
+    <li><a href="#97-network-policy">9.7 Network Policy</a></li>
   </ul>
 </nav>
   </div>
@@ -296,6 +347,370 @@
 </tbody>
 </table>
 <hr>
+<h1 id="3-常用命令">3. 常用命令</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看pod.spec的完整配置字段</span>
+kubectl explain pod.spec
+</code></pre></div><h1 id="4调度管理">4.调度管理</h1>
+<h2 id="41-资源分配调度">4.1 资源分配调度</h2>
+<p>###4.1.1 基于pod中容器request资源“总和”调度</p>
+<ul>
+<li>resources。limits影响pod的运行资源上限，不影响调度</li>
+<li>initContainer取最大值，container取累加值，最后取大者。即Max(Max(initContainers.requests),Sum(containers.requests))</li>
+</ul>
+<blockquote>
+<p>initContainer运行后会退出，所以不需要累加</p>
+</blockquote>
+<ul>
+<li>未指定request，按0资源需求进行调度</li>
+</ul>
+<h3 id="412-基于资源申明的调度而非实际占用">4.1.2 基于资源申明的调度，而非实际占用</h3>
+<ul>
+<li>不依赖监控，系统不会过于敏感</li>
+<li>能否调度成功：pod.request&lt;node.allocatable -node.request;pod的请求量 小于（node的分配量-已经调度的pod的量）</li>
+</ul>
+<h3 id="413-资源分配的盒子模型">4.1.3 资源分配的盒子模型</h3>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210822233428309.png" alt="image-20210822233428309"  loading="lazy" />
+</p>
+<p>###4.1.4资源分配相关算法</p>
+<ul>
+<li>generalPredicates(主要是PodFitsResources)，检查余量，cpu内存硬盘是否满足</li>
+<li>LeastRequestedPriotity，最少被调度pod的节点</li>
+<li>BalanceResourceAllocation,平衡节点cpu/mem消耗比例</li>
+</ul>
+<h2 id="42-高级调度">4.2 高级调度</h2>
+<h3 id="421-nodeselector将pod调度到指定的node上">4.2.1 nodeSelector:将pod调度到指定的node上</h3>
+<blockquote>
+<p>匹配node.lables,完全匹配</p>
+</blockquote>
+<h3 id="422-nodeaffinitynodeselector升级版">4.2.2 nodeAffinity：nodeselector升级版</h3>
+<blockquote>
+<p>与nodeSelector关键差异，是</p>
+<ol>
+<li>
+<p>引入运算符：In，NotIN（lableSelector语法）</p>
+</li>
+<li>
+<p>支持枚举lable可能的取值，如zone in [az1,az2 &hellip;]</p>
+</li>
+<li>
+<p>支持硬性过滤和软性评分</p>
+</li>
+<li>
+<p>硬性过滤规则支持指定 多条件之间的逻辑或运算</p>
+</li>
+<li>
+<p>软性评分规则支持 设置条件权重值</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="423-podaffinity让某些pod分布在同一组上node上">4.2.3 podAffinity:让某些pod分布在同一组上Node上</h3>
+<blockquote>
+<p>与nodeAffinity的关键差异</p>
+<ol>
+<li>定义在PodSpec中，亲和和反亲和规则具有对称性</li>
+<li>labelSelector的匹配对象为Pod</li>
+<li>对node分组依据label-key=topologKey，每个label-value取值为一组</li>
+<li>硬性过滤规则，条件之间只有逻辑与运算</li>
+</ol>
+</blockquote>
+<h3 id="424podantiaffinity避免某些pod分布在同一组node上">4.2.4podAntiAffinity：避免某些pod分布在同一组Node上</h3>
+<blockquote>
+<p>与podAffinity的匹配过程相同，最终的调度结果取反</p>
+</blockquote>
+<h3 id="425-手动调度pod">4.2.5 手动调度pod</h3>
+<ol>
+<li>
+<p>nodeName:直接指定运行的nodeName；</p>
+<blockquote>
+<p>适用于调度器不工作，临时救急;</p>
+<p>封装实现自定义的调度器</p>
+</blockquote>
+</li>
+<li>
+<p>DaemonSet：每个节点来一份</p>
+<blockquote>
+<p>适用于每个节点都需要部署的agent等</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="426-taints避免pod调度到特定node上">4.2.6 Taints：避免Pod调度到特定Node上</h3>
+<ol>
+<li>带effect的特殊label，对Pod有排斥星</li>
+</ol>
+<blockquote>
+<p>硬性排斥：NoSchedule</p>
+<p>软性排斥 PreferNoSchedule</p>
+</blockquote>
+<ol start="2">
+<li>系统创建的taint附带时间戳</li>
+</ol>
+<blockquote>
+<p>effect为NoExecute</p>
+<p>便于触发对pod的超时驱逐</p>
+</blockquote>
+<p>典型用法：预留特殊节点做特殊用途</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 给node添加taint</span>
+kubectl taint node node-n1 foo<span style="color:#f92672">=</span>bar:NoSchedule
+<span style="color:#75715e"># 删除taint</span>
+kubectl taint node node-n1 foo:Noschedule-
+</code></pre></div><h3 id="427-tolerations允许pod调度到有特定taints的node上">4.2.7 Tolerations：允许Pod调度到有特定taints的Node上</h3>
+<h2 id="43-调度失败的原因分析">4.3 调度失败的原因分析</h2>
+<ol>
+<li>查看调度结果</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell">kubectl get pod <span style="color:#f92672">[</span>podname<span style="color:#f92672">]</span> -o wide
+</code></pre></div><ol>
+<li>
+<p>查看调度失败的原因</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell">kubectl describe pod <span style="color:#f92672">[</span>podname<span style="color:#f92672">]</span>
+</code></pre></div><h2 id="44-多调度器">4.4 多调度器</h2>
+<ol>
+<li>使用场景：集群中存在多个调度器，分别处理不同类型的作业调度</li>
+<li>使用限制：建议对弄的做资源池划分，避免调度结果写入冲突</li>
+</ol>
+<h2 id="45-自定义调度器配置">4.5 自定义调度器配置</h2>
+<p>&ndash;policy-config-file自定义调度器加载的算法，或者调整排序算法权重</p>
+<pre><code class="language---helpshell" data-lang="--helpshell"># 查询多调度器配置
+kube-scheduler --help
+</code></pre></li>
+</ol>
+<h1 id="5监控">5.监控</h1>
+<pre><code>  ```shell
+  # 查看集群状态
+  kubectl cluster-info 
+  kubectl cluster-info  dump &gt;info.txt
+  # 查看pod详情
+  kubectl describe pod
+  
+  #占用资源排序
+  kubectl top pod ｛podName｝
+  
+  # 监控资源运行过程
+  kubectl get pod ｛podName｝ --watch
+  ```
+</code></pre>
+<p>​   <br>
+​</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell">  <span style="color:#e6db74">```</span>shell
+  <span style="color:#75715e"># 日志查看</span>
+  <span style="color:#75715e"># 组件日志</span>
+  /var/log/kube-apiserver.log
+  /var/log/kube-proxy.log
+  /var/log/kube-controller-manager.log
+  /var/log/kubelet.log
+  
+  <span style="color:#75715e"># 使用systemd管理</span>
+  journalctl -u kubelet
+  
+  <span style="color:#75715e">#使用k8s插件部署</span>
+  kubectl logs kube-proxy
+  
+  <span style="color:#75715e"># k8s应用日志</span>
+  <span style="color:#75715e">#获取容器的日志</span>
+  <span style="color:#75715e"># 1.从容器标准输出截获</span>
+  kubectl logs -f <span style="color:#f92672">{</span>podname<span style="color:#f92672">}</span> -c <span style="color:#f92672">{</span>container name<span style="color:#f92672">}</span>
+  <span style="color:#75715e">#或者使用docker命令</span>
+  docker logs -f <span style="color:#f92672">{</span>container Name<span style="color:#f92672">}</span>
+  
+  <span style="color:#75715e"># 2.直接进入容器内查看日志</span>
+  kubectl exec -it <span style="color:#f92672">{</span>pod<span style="color:#f92672">}</span> -c <span style="color:#f92672">{</span>container<span style="color:#f92672">}</span> /bin/sh
+  docker exec -it  <span style="color:#f92672">{</span>container<span style="color:#f92672">}</span> /bin/sh
+  
+  <span style="color:#75715e"># 3.挂载到主机上的日志</span>
+  tail -f /log <span style="color:#75715e">#主机挂载的目录</span>
+  <span style="color:#e6db74">```</span>
+</code></pre></div><h1 id="6-deployment-升级与回滚">6 Deployment 升级与回滚</h1>
+<pre><code>  ```shell
+  #创建deployment
+  #可以使用yaml，重点配置replicas和image字段
+  kubectl run ｛deployment｝-image={image} -replicas={rep.}
+  
+  #升级deployment
+  kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
+  kubectl set resources deploument/nginx-deployment -c=nginx --limits=cpu=200m,memory=521Mi
+  ```
+  
+  ```shell
+  # 暂停deployment：不计入升级历史
+  kubectl rollout pause deployment/nginx-deployment
+  # 恢复deployment
+  kubectl rollout resume deployment/nginx-deployment
+  
+  # 查询升级状态
+  kubectl rollout status deployment/nginx-deployment
+  
+  # 查询升级历史
+  kubectl rollout history deployment/nginx-deployment
+  kubectl rollout history deployment/nginx-deployment --revision=2
+  
+  # 回滚
+  kubectl rollout undo deployment/nginx-deployment --通-revision=2
+  
+  # 应用弹性伸缩
+  kubectl scale deployment nginx-doployment --replicas=10
+  
+  #自动伸缩，需要对接监控
+  kubectl autoscale deployment nginx-deployment--min=10 --max=15 --cpu-percent=80
+  ```
+  
+  ```shell 
+  # 应用自恢复（重启策略+探针） 使用restartPolicy + livenssProbe
+  
+  ```
+</code></pre>
+<h1 id="7-网络">7. 网络</h1>
+<h2 id="71-pod网络">7.1 pod网络</h2>
+<ol>
+<li>一个pod一个ip</li>
+</ol>
+<ul>
+<li>每个pod独立ip，pod内所有容器共享网络namespace（同一个ip）</li>
+<li>容器之间直接通讯，不需要nat</li>
+<li>Node和容器直接通信，不需要nat</li>
+<li>其他容器和容器自身看到的ip是一样的</li>
+</ul>
+<ol start="2">
+<li>集群内访问走service，集群外访问走ingress</li>
+<li>CNI（container network interface）用于篇日志pod网络，不支持docker网络</li>
+</ol>
+<h1 id="72-service">7.2 service</h1>
+<ol>
+<li>clusterIp</li>
+<li>nodePort :创建后也被分配了clusterip</li>
+<li>headless service：类型为clusterIp ，但是clusterIp 为none</li>
+</ol>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210824222942310.png" alt="image-20210824222942310"  loading="lazy" />
+</p>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210824223036236.png" alt="image-20210824223036236"  loading="lazy" />
+</p>
+<h3 id="ingress">ingress</h3>
+<blockquote>
+<p>ingress是授权入站连接到达集群服务的规则集合</p>
+<ol>
+<li>支持通过url方式将service暴露到k8s集群外，service之上的L7访问入库</li>
+<li>支持自定义service的访问策略</li>
+<li>提供按域名访问的虚拟主机功能</li>
+<li>支持tls</li>
+</ol>
+</blockquote>
+<h3 id="k8s-dns">k8s dns</h3>
+<blockquote>
+<p>解析pod和service的域名，k8s集群内pod使用</p>
+<p>通过CoreDNS实现（kube-dns已经废弃）</p>
+</blockquote>
+<h4 id="对service">对Service</h4>
+<ol>
+<li>A记录</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 普通service</span>
+my-svc.my-namespace.svc.cluster.local  <span style="color:#75715e">#cluster ip</span>
+<span style="color:#75715e">#headless service</span>
+my-svc.my-namespace.svc.cluster.local <span style="color:#75715e"># 后端ip列表</span>
+</code></pre></div><ol start="2">
+<li>SRV记录</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell">_my-port-name._my-port-protocol.my-namespace.svc.cluster.local <span style="color:#75715e"># service port</span>
+</code></pre></div><h4 id="对pod">对pod</h4>
+<ol>
+<li>A记录</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell">pod-ip.my-namespace.pod.cluster.local  <span style="color:#75715e">#pod ip</span>
+
+</code></pre></div><ol start="2">
+<li>在pod spec 指定hostname和subdomain</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell">hostname.subdomain.my-namespace.pod.cluster.local <span style="color:#75715e"># pod ip</span>
+</code></pre></div><h3 id="查看dns">查看dns</h3>
+<ol>
+<li>nslookup</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#需要安装 nslookup</span>
+wget https://kubernetes.io/examples/admin/dns/busybox.yaml
+<span style="color:#75715e"># 运行容器</span>
+kubectl  create -f busybox.yaml 
+<span style="color:#75715e"># 查看kubernetes.default域名</span>
+kubectl exec -it busybox -- nslookup kubernetes.default
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:2;-o-tab-size:2;tab-size:2"><code class="language-shell" data-lang="shell">Address 1: 10.96.0.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      kubernetes.default
+Address 1: 10.96.0.1 kubernetes.default.svc.cluster.local
+
+</code></pre></div><h1 id="8-存储管理">8. 存储管理</h1>
+<h2 id="81-普通存储卷volume">8.1 普通存储卷volume</h2>
+<blockquote>
+<p>存储没有单独资源对象，与pod的生命周期一起</p>
+<p>deployment应用建议使用普通卷</p>
+</blockquote>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210824234118722.png" alt="image-20210824234118722"  loading="lazy" />
+</p>
+<h1 id="82-持久化存储卷pv">8.2 持久化存储卷pv</h1>
+<blockquote>
+<p>存储系统与应用系统区分开，单独资源对象，它不直接和pod发生关系，通过另一个资源对象pvc来绑定</p>
+<p>statefulset应用建议使用持久卷</p>
+</blockquote>
+<ol>
+<li>静态模式</li>
+</ol>
+<blockquote>
+<p>除了创建pvc外，还需要手动创建pv</p>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210824234827809.png" alt="image-20210824234827809"  loading="lazy" />
+</p>
+</blockquote>
+<ol start="2">
+<li>动态模式</li>
+</ol>
+<blockquote>
+<p>只需要创建pvc，系统根据pvc自动创建pv</p>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210824235028384.png" alt="image-20210824235028384"  loading="lazy" />
+</p>
+</blockquote>
+<h1 id="9-安全管理">9. 安全管理</h1>
+<h2 id="91-安全全景图">9.1 安全全景图</h2>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210827230851737.png" alt="image-20210827230851737"  loading="lazy" />
+</p>
+<ol>
+<li>部署态的安全控制</li>
+</ol>
+<blockquote>
+<ul>
+<li>认证</li>
+<li>鉴权</li>
+<li>Admission（准入控制）</li>
+<li>Pod SecurityContext</li>
+</ul>
+</blockquote>
+<ol>
+<li>运行态的安全控制</li>
+</ol>
+<blockquote>
+<ul>
+<li>Network policy</li>
+</ul>
+</blockquote>
+<h2 id="92-认证">9.2 认证</h2>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210825003603124.png" alt="image-20210825003603124"  loading="lazy" />
+</p>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210825003629222.png" alt="image-20210825003629222"  loading="lazy" />
+</p>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210825003655282.png" alt="image-20210825003655282"  loading="lazy" />
+</p>
+<h2 id="93-鉴权">9.3 鉴权</h2>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210825003736994.png" alt="image-20210825003736994"  loading="lazy" />
+</p>
+<h2 id="94-admission">9.4 admission</h2>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210825003815340.png" alt="image-20210825003815340"  loading="lazy" />
+</p>
+<h2 id="95-安全的持久化保存键值etcd">9.5 安全的持久化保存键值etcd</h2>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210825003449979.png" alt="image-20210825003449979"  loading="lazy" />
+</p>
+<h2 id="96-安全上下文pod-securitycontext">9.6 安全上下文（pod securityContext）</h2>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210825004238224.png" alt="image-20210825004238224"  loading="lazy" />
+</p>
+<h2 id="97-network-policy">9.7 Network Policy</h2>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210825004644039.png" alt="image-20210825004644039"  loading="lazy" />
+</p>
+<p><img class="img-fluid" src="http://qiniu.anideal.site/img/image-20210825005010880.png" alt="image-20210825005010880"  loading="lazy" />
+</p>
 <h1 id="其他">其他</h1>
 <p>1.preSet</p>
 <p>在preSet中，同一个主机路径，不能挂载到2个路径上，必须使用2个volumes来挂载</p>
@@ -316,7 +731,7 @@
     </div></div>
 </div><section class="related-posts">
     <h3>相关文章</h3>
-    <ul class="related-posts"><li><a href="/posts/docker/env/">docker</a></li><li><a href="/posts/docker/dockerfile/">docker</a></li><li><a href="/posts/docker/base/">docker</a></li><li><a href="/posts/tool/hugo/">hugo</a></li><li><a href="/posts/linux/shell/">shell</a></li></ul>
+    <ul class="related-posts"><li><a href="/posts/k8s/kind/">k8s kind</a></li><li><a href="/posts/docker/env/">docker</a></li><li><a href="/posts/docker/base/">docker</a></li><li><a href="/posts/docker/dockerfile/">docker</a></li><li><a href="/posts/tool/hugo/">hugo</a></li></ul>
   </section></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
   repo="razonyang/hugo-theme-bootstrap"
   issue-term="pathname"
@@ -343,10 +758,10 @@
           Shortcode <span class="badge rounded-pill">9</span>
         </a><a href="/categories/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
           linux <span class="badge rounded-pill">5</span>
+        </a><a href="/categories/k8s/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="k8s">
+          k8s <span class="badge rounded-pill">2</span>
         </a><a href="/categories/tool/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="tool">
           tool <span class="badge rounded-pill">2</span>
-        </a><a href="/categories/k8s/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="k8s">
-          k8s <span class="badge rounded-pill">1</span>
         </a></div>
     </section><section class="taxonomy-series row surface">
       <h4>
@@ -354,12 +769,12 @@
       </h4>
       <div><a href="/series/docker/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="docker">
           docker <span class="badge rounded-pill">3</span>
+        </a><a href="/series/k8s/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="k8s">
+          k8s <span class="badge rounded-pill">2</span>
         </a><a href="/series/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="linux">
           linux <span class="badge rounded-pill">2</span>
         </a><a href="/series/tool/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="tool">
           tool <span class="badge rounded-pill">2</span>
-        </a><a href="/series/k8s/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="k8s">
-          k8s <span class="badge rounded-pill">1</span>
         </a><a href="/series/%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="用户手册">
           用户手册 <span class="badge rounded-pill">1</span>
         </a></div>
@@ -371,6 +786,8 @@
           linux <span class="badge rounded-pill">4</span>
         </a><a href="/tags/docker/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="docker">
           docker <span class="badge rounded-pill">3</span>
+        </a><a href="/tags/k8s/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="k8s">
+          k8s <span class="badge rounded-pill">2</span>
         </a><a href="/tags/alert/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Alert">
           Alert <span class="badge rounded-pill">1</span>
         </a><a href="/tags/codepen/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="CodePen">
@@ -385,8 +802,6 @@
           hugo <span class="badge rounded-pill">1</span>
         </a><a href="/tags/jsfiddle/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JSFiddle">
           JSFiddle <span class="badge rounded-pill">1</span>
-        </a><a href="/tags/jsrun/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JSRun">
-          JSRun <span class="badge rounded-pill">1</span>
         </a></div>
     </section></div>
 </aside>
